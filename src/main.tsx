@@ -2,79 +2,78 @@ import React,{useEffect,useRef,useState} from 'react';
 import{createRoot}from'react-dom/client';
 import gsap from'gsap';
 import{ScrollTrigger}from'gsap/ScrollTrigger';
-import{ArrowUpRight,ArrowDown,ArrowLeft,ArrowRight,Menu,X,Plus,Minus}from'lucide-react';
-import'./style.css';
+import{ArrowUpRight,ArrowDown,ArrowLeft,ArrowRight,Menu,X}from'lucide-react';
+import './style.css';
 gsap.registerPlugin(ScrollTrigger);
 const base='https://www.ramsetuconstructions.com/assets/images/';
-const asset=(name:string)=>base+name;
-const photos=[
-'img-7888-1170x752.png','img-1233-1170x1052-800x719.png','0f152acd-3ecb-4186-b26a-2e9536241a80-1334x1000-800x600.jpg','img-171-2000x1125-800x450.jpg','img-1407-2000x1125-800x450.jpg','23dc8a57-f7b1-4e59-bc68-e8fe20f85c74-1120x1280-800x914.jpg','2a1a035e-00d3-4073-ac80-cdf3d0b51dd7-1280x885-800x553.jpg'].map(asset);
-const projects=[{name:'A different perspective',category:'Residential architecture',picture:photos[0],number:'01'},{name:'A place to belong',category:'Architectural design',picture:photos[1],number:'02'},{name:'Defined by detail',category:'Residential visualisation',picture:photos[2],number:'03'},{name:'A home, considered',category:'Design explorations',picture:photos[3],number:'04'}];
-const services=[{number:'01',name:'Architecture',eyebrow:'CONSIDERED FROM THE FIRST LINE',copy:'Homes imagined with clarity, proportion and the everyday life they will hold.',pic:photos[0]},{number:'02',name:'Interiors',eyebrow:'SPACES MADE PERSONAL',copy:'A layered approach to material, light and the details that make a space feel like yours.',pic:photos[1]},{number:'03',name:'Construction',eyebrow:'FROM PLANS TO PLACE',copy:'Careful coordination and execution, bringing ambitious residential visions into the real world.',pic:photos[4]}];
+const images=['img-7888-1170x752.png','img-1233-1170x1052-800x719.png','0f152acd-3ecb-4186-b26a-2e9536241a80-1334x1000-800x600.jpg','img-171-2000x1125-800x450.jpg','img-1407-2000x1125-800x450.jpg','23dc8a57-f7b1-4e59-bc68-e8fe20f85c74-1120x1280-800x914.jpg','2a1a035e-00d3-4073-ac80-cdf3d0b51dd7-1280x885-800x553.jpg'].map(x=>base+x);
 const wa='https://wa.me/918088884893?text='+encodeURIComponent('Hello Ramsetu Constructions, I would like to discuss a project.');
-function Sketch(){return <svg className="sketch" viewBox="0 0 1400 570" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Original architectural line drawing of a contemporary home" role="img"><g className="sketch-lines" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M0 472 180 461 247 450 396 448 493 441 662 444 885 453 1092 458 1400 448"/><path d="M225 444 230 292 451 242 844 268 939 300 939 449"/><path d="M235 297 457 260 839 285 929 309"/><path d="M230 291 450 243 840 267 929 299"/><path d="M457 260 458 445 M839 285 839 454"/><path d="M272 308 272 440 M300 301 300 443 M326 296 326 445 M356 287 356 443 M386 280 386 445 M413 272 413 444" opacity=".45"/><path d="M495 315 805 332 805 445 495 443Z M509 325 790 339 790 440 509 439Z M579 328 579 441 M646 332 646 443 M719 336 719 444"/><path d="M259 333 418 302 418 424 259 428Z M270 340 408 314 408 416 270 419Z"/><path d="M447 244 490 241 844 267 M448 260 490 259 842 283"/><path d="M843 285 885 288 885 450 M886 292 920 302"/><path d="M220 451 242 451 M937 453 986 458 M191 454 215 446 M975 456 1086 462"/><path d="M70 465 82 391 94 467 M43 446 Q52 352 85 365 Q105 313 132 347 Q164 341 160 392 Q201 395 175 432 Q153 447 121 428 M96 356 Q111 322 140 353 M130 388 132 468"/><path d="M1071 459 1080 363 M1080 401 Q1011 381 1035 343 Q1028 305 1063 304 Q1086 269 1117 302 Q1160 301 1153 347 Q1173 383 1129 399 Q1107 417 1080 401 M1125 458 1134 416 M1157 458 1168 348 M1168 383 Q1198 355 1206 319 Q1226 304 1245 334 Q1280 317 1296 360 Q1308 389 1271 403 Q1234 426 1198 402"/><path d="M0 495 200 483 450 481 710 484 986 491 1400 485" opacity=".55"/><path d="M119 472 l-7 18 13 0 M122 448 q-7 -9 -13 2 q-3 9 7 12 l-4 10 16 0 -5 -13 q10 -8 0 -14z M134 470 l-4 20 M164 476 l-3 16"/><path d="M1350 455 l15 -5 19 10 M1366 449 v29" opacity=".6"/></g><g className="draft-details" stroke="currentColor" strokeWidth=".7" opacity=".5"><path d="M230 206V174M940 232V175M230 185H940M230 177l10 15M940 177l-10 15M450 230V201M840 240V201M450 212H840M447 206l12 12M839 206l-12 12"/><path d="M999 435h206 M998 431v8 M1205 431v8"/></g><g fill="currentColor" opacity=".65" fontFamily="sans-serif" fontSize="13"><text x="560" y="174">RESIDENTIAL STUDY / 001</text><text x="1030" y="427">ELEVATION CONCEPT</text><text x="245" y="167">+ 6.450</text></g></svg>}
-
-const buildStages=[
-{num:'01',tag:'THE STRUCTURE',title:'Every home begins with a foundation.',detail:'The invisible decisions that make everything above possible.'},
-{num:'02',tag:'THE VOLUME',title:'Structure becomes shelter.',detail:'Space starts to take shape through proportion, light and intention.'},
-{num:'03',tag:'THE CHARACTER',title:'Details give it identity.',detail:'A facade, a threshold, a sense of arrival.'},
-{num:'04',tag:'THE HOME',title:'Made for the life inside.',detail:'From the first line to a place that belongs to you.'}
-];
-function BuildingSequence(){
-const scene=useRef<HTMLElement>(null);
-const [stage,setStage]=useState(0);
-useEffect(()=>{
- const el=scene.current;if(!el)return;
- const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
- if(reduce){setStage(3);el.style.setProperty('--build','1');return;}
- const ctx=gsap.context(()=>{
-  ScrollTrigger.create({trigger:el,start:'top top',end:'+=290%',pin:true,scrub:0.8,anticipatePin:1,invalidateOnRefresh:true,onUpdate:self=>{
-   const p=self.progress;el.style.setProperty('--build',String(p));
-   const index=Math.min(3,Math.floor(p*4));setStage(old=>old===index?old:index);
-  }});
- },el);
- return()=>ctx.revert();
-},[]);
-return <section className="build-sequence" ref={scene} aria-label="Interactive stages of building a home">
-<div className="build-grid" aria-hidden="true"/>
-<div className="build-top"><span>02 / FROM STRUCTURE TO SPACE</span><span>RAMSETU / AN ARCHITECTURAL STUDY</span></div>
-<div className="build-layout">
- <div className="build-copy"><span className="build-kicker"><span className="live-dot"/> THE MAKING OF A HOME</span><div className="build-stage-index">{buildStages[stage].num}<span> / 04</span></div><div className="build-copy-window" key={stage}><span>{buildStages[stage].tag}</span><h2>{buildStages[stage].title}</h2><p>{buildStages[stage].detail}</p></div><div className="build-steps">{buildStages.map((s,i)=><span key={s.num} className={i<=stage?'passed':''}/>)}</div></div>
- <div className="build-visual" aria-label="An original architectural illustration assembling as you scroll">
- <div className="build-orbit orbit-one"/><div className="build-orbit orbit-two"/>
- <div className="building-art">
-  <div className="art-shadow"/><div className="art-platform"/>
-  <div className="art-columns">{Array.from({length:5},(_,i)=><i key={i}/>)}</div>
-  <div className="art-roof"/>
-  <div className="art-walls"><i className="wall-left"/><i className="wall-right"/></div>
-  <div className="art-facade"><i className="facade-band"/><i className="facade-window window-one"/><i className="facade-window window-two"/><i className="facade-window window-three"/><i className="facade-door"/></div>
-  <div className="art-glow"/>
+const moments=[{number:'01',eyebrow:'FORM',title:'A vision of what could be.',body:'Every project begins as a possibility. Shape, scale and the feeling of a place.',image:images[0]},{number:'02',eyebrow:'MATERIAL',title:'A language of detail.',body:'Materials, light and proportion turn a structure into an experience.',image:images[2]},{number:'03',eyebrow:'SPACE',title:'Made for living.',body:'A considered space is about more than what you see. It is how you feel inside it.',image:images[1]}];
+const gallery=[{label:'Architecture / Study 01',image:images[0]},{label:'Residential design / Study 02',image:images[3]},{label:'Materials and space / Study 03',image:images[2]},{label:'Built environment / Study 04',image:images[4]}];
+function SpatialStory(){
+ const pin=useRef<HTMLElement>(null);
+ const [active,setActive]=useState(0);
+ useEffect(()=>{
+  if(!pin.current)return;
+  const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduced){setActive(2);return;}
+  const ctx=gsap.context(()=>{
+   gsap.set('.scene-image',{clipPath:'inset(0 0 0 100%)',scale:1.18});
+   gsap.set('.scene-image:first-child',{clipPath:'inset(0 0 0 0)',scale:1});
+   const tl=gsap.timeline({defaults:{ease:'none'},scrollTrigger:{trigger:pin.current,start:'top top',end:'+=230%',pin:true,scrub:1,anticipatePin:1,invalidateOnRefresh:true,onUpdate:self=>{const n=Math.min(2,Math.floor(self.progress*3));setActive(prev=>prev===n?prev:n)}}});
+   tl.to('.scene-image:nth-child(2)',{clipPath:'inset(0 0 0 0)',scale:1,duration:1},0.5)
+     .to('.scene-image:first-child',{scale:1.15,duration:1},0.5)
+     .to('.scene-image:nth-child(3)',{clipPath:'inset(0 0 0 0)',scale:1,duration:1},1.6)
+     .to('.scene-image:nth-child(2)',{scale:1.15,duration:1},1.6);
+  },pin);return()=>ctx.revert();
+ },[]);
+ return <section className="spatial" ref={pin} id="approach" aria-label="Spatial journey through architectural work">
+  <div className="spatial-images">{moments.map((m,i)=><div className="scene-image" key={m.number}><img src={m.image} alt={'Ramsetu published gallery, architectural visual '+m.number} loading={i===0?'eager':'lazy'}/></div>)}</div>
+  <div className="spatial-scrim"/>
+  <div className="spatial-top"><span>CHAPTER 01 / THE EXPERIENCE OF SPACE</span><span>RAMSETU CONSTRUCTIONS</span></div>
+  <div className="spatial-copy" key={active}><div className="scene-small">{moments[active].number} / 03 — {moments[active].eyebrow}</div><h2>{moments[active].title}</h2><p>{moments[active].body}</p></div>
+  <div className="spatial-rail">{moments.map((m,i)=><div key={m.number} className={i===active?'selected':''}><span>{m.number}</span><span>{m.eyebrow}</span></div>)}</div>
+  <div className="spatial-bottom"><span>THREE VISUAL STUDIES / FROM RAMSETU'S PUBLISHED GALLERY</span><span>CONTINUE SCROLLING ↓</span></div>
+ </section>
+}
+function App(){
+ const root=useRef<HTMLDivElement>(null);
+ const [menu,setMenu]=useState(false);
+ const [selected,setSelected]=useState(0);
+ const [progress,setProgress]=useState(0);
+ useEffect(()=>{
+  const ctx=gsap.context(()=>{
+   if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+   gsap.fromTo('.hero-image img',{scale:1.13},{scale:1,duration:2,ease:'power2.out'});
+   gsap.from('.hero-reveal',{y:70,opacity:0,duration:1.25,stagger:.11,ease:'power3.out',delay:.18});
+   gsap.utils.toArray<HTMLElement>('.enter').forEach(el=>gsap.from(el,{y:55,opacity:0,duration:1,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 88%',once:true}}));
+   ScrollTrigger.create({onUpdate:()=>setProgress(Math.max(0,Math.min(100,Math.round(window.scrollY/Math.max(1,document.documentElement.scrollHeight-innerHeight)*100))))});
+  },root);return()=>ctx.revert();
+ },[]);
+ const shift=(n:number)=>setSelected(i=>(i+n+gallery.length)%gallery.length);
+ return <div className="site" ref={root}>
+  <div className="concept-strip">INDEPENDENT DESIGN CONCEPT FOR RAMSETU — NOT THE OFFICIAL WEBSITE</div>
+  <header className="navigation">
+   <a href="#top" className="wordmark" aria-label="Ramsetu home"><img src="/ramsetu-original-logo.png" alt="Ramsetu original logo"/><span>RAMSETU<small>CONSTRUCTIONS</small></span></a>
+   <nav className="desktop-nav"><a href="#approach">The Experience</a><a href="#projects">Work</a><a href="#expertise">Practice</a></nav>
+   <a className="nav-action" href={wa} target="_blank" rel="noreferrer">DISCUSS A PROJECT <ArrowUpRight size={17}/></a>
+   <button className="mobile-toggle" onClick={()=>setMenu(!menu)} aria-label={menu?'Close menu':'Open menu'} aria-expanded={menu}>{menu?<X/>:<Menu/>}</button>
+  </header>
+  {menu&&<div className="mobile-menu">{[['The Experience','approach'],['Selected Work','projects'],['Our Practice','expertise'],['Enquire','contact']].map(([label,id],i)=><a key={id} href={'#'+id} onClick={()=>setMenu(false)}><small>0{i+1}</small>{label}<ArrowUpRight/></a>)}</div>}
+  <main>
+   <section className="hero" id="top">
+    <div className="hero-image"><img src={images[0]} alt="Architectural image from Ramsetu Constructions' published gallery" fetchPriority="high"/></div>
+    <div className="hero-shade"/>
+    <div className="hero-top"><span>ARCHITECTURE / CONSTRUCTION / INTERIORS</span><span>BENGALURU · MYSURU · HASSAN</span></div>
+    <div className="hero-heading"><span className="hero-index hero-reveal">AN ARCHITECTURAL PRACTICE / PRESENTED DIFFERENTLY</span><h1 className="hero-reveal">Spaces worth<br/><em>belonging to.</em></h1><div className="hero-line hero-reveal"><span>RAMSETU</span><span>EST. IN PURPOSE</span></div></div>
+    <div className="hero-bottom"><p className="hero-reveal">A new perspective on the places we imagine, shape and build.</p><a className="hero-scroll" href="#approach">ENTER THE EXPERIENCE <ArrowDown size={17}/></a><span>01 — 05</span></div>
+   </section>
+   <SpatialStory/>
+   <section className="statement" id="expertise"><div className="statement-head enter"><span>02 / THE PRACTICE</span><span>THOUGHT THROUGH. BUILT WITH CARE.</span></div><div className="statement-main enter"><h2>Buildings are made.<br/><em>Places are felt.</em></h2><p>Architecture, construction and interiors aren't separate conversations. Together, they shape how a place looks, works and feels.</p></div><div className="disciplines enter">{[['01','ARCHITECTURE'],['02','CONSTRUCTION'],['03','INTERIORS']].map(([n,t])=><div key={n}><small>{n}</small><span>{t}</span><ArrowUpRight size={20}/></div>)}</div></section>
+   <section className="work" id="projects"><div className="work-head enter"><span>03 / SELECTED VISUAL STUDIES</span><h2>Work that speaks<br/><em>in spaces.</em></h2><p>Published imagery from Ramsetu's gallery, arranged as an independent editorial study. Individual project names and completion status have not been verified.</p></div><div className="work-stage"><div className="work-image" key={selected}><img src={gallery[selected].image} alt={gallery[selected].label+' from Ramsetu gallery'}/></div><div className="work-count">{String(selected+1).padStart(2,'0')} <span>/ 04</span></div><div className="work-caption"><div><span>RAMSETU / PUBLISHED WORK</span><h3>{gallery[selected].label}</h3></div><div className="work-arrows"><button onClick={()=>shift(-1)} aria-label="Previous image"><ArrowLeft/></button><button onClick={()=>shift(1)} aria-label="Next image"><ArrowRight/></button></div></div></div></section>
+   <section className="interlude"><div className="interlude-image"><img src={images[6]} alt="Architectural detail from Ramsetu's gallery" loading="lazy"/></div><div className="interlude-copy enter"><span>04 / THE DETAILS</span><h2>The difference<br/>is in what you<br/><em>notice.</em></h2></div></section>
+   <section className="contact" id="contact"><div className="contact-overline">05 / THE NEXT BEGINNING</div><div className="contact-main enter"><h2>Have a space<br/><em>in mind?</em></h2><a href={wa} target="_blank" rel="noreferrer">LET'S TALK ABOUT IT <ArrowUpRight size={25}/></a></div><footer><div className="footer-logo"><img src="/ramsetu-original-logo.png" alt="Original Ramsetu logo"/><span>RAMSETU <small>CONSTRUCTIONS</small></span></div><span>INDEPENDENT PITCH CONCEPT · 2026</span><a href="https://instagram.com/ramsetu_constructions/" target="_blank" rel="noreferrer">INSTAGRAM ↗</a><a href="#top">BACK TO TOP ↑</a></footer></section>
+  </main><div className="progress-line" style={{transform:'scaleX('+progress/100+')'}}/>
  </div>
- <span className="build-coordinate c1">X 23° / Y 18°</span><span className="build-coordinate c2">FIG. 02 — CONCEPTUAL ASSEMBLY</span>
- </div>
-</div>
-<div className="build-bottom"><span>DESIGN → ENGINEERING → EXECUTION</span><span>SCROLL TO CONSTRUCT ↓</span></div>
-</section>}
-
-function App(){const root=useRef<HTMLDivElement>(null);const [menu,setMenu]=useState(false);const [active,setActive]=useState(1);const [project,setProject]=useState(0);const [faq,setFaq]=useState<number|null>(null);const [progress,setProgress]=useState(0);
-useEffect(()=>{const ctx=gsap.context(()=>{if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;gsap.fromTo('.hero-photo-frame',{clipPath:'inset(15% 13% 15% 13%)',scale:1.12},{clipPath:'inset(0% 0% 0% 0%)',scale:1,duration:1.65,ease:'power3.out'});gsap.fromTo('.hero-word',{y:90,opacity:0},{y:0,opacity:1,duration:1.25,delay:.5,ease:'power3.out'});gsap.utils.toArray<HTMLElement>('.rise').forEach(el=>gsap.from(el,{y:62,opacity:0,duration:1.1,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 90%',once:true}}));gsap.fromTo('.hero-architecture',{y:0},{y:115,scrollTrigger:{trigger:'.opening',start:'top top',end:'bottom top',scrub:1}});gsap.fromTo('.vision-photo',{scale:1.16},{scale:1,scrollTrigger:{trigger:'.vision',start:'top bottom',end:'bottom top',scrub:true}});ScrollTrigger.create({onUpdate:()=>setProgress(Math.round(100*window.scrollY/Math.max(1,document.documentElement.scrollHeight-window.innerHeight)))});},root);return()=>ctx.revert()},[]);
-const next=(amount:number)=>setProject(p=>(p+amount+projects.length)%projects.length);
-return <div className="app" ref={root}>
-<div className="demo-note">INDEPENDENT RAMSETU WEBSITE CONCEPT — NOT THE OFFICIAL WEBSITE</div>
-<header className="nav"><a className="nav-brand" href="#top" aria-label="Ramsetu Constructions home"><img src="/ramsetu-original-logo.png" alt="Original Ramsetu Constructions logo"/><span>RAMSETU<small>CONSTRUCTIONS</small></span></a><nav className="nav-links"><a href="#work">Projects</a><a href="#expertise">Expertise</a><a href="#story">Approach</a><a href="#contact">Contact</a></nav><span className="nav-center">DESIGN IS WHERE IT BEGINS</span><a className="nav-contact" href={wa} target="_blank" rel="noreferrer">REQUEST A CALL <ArrowUpRight size={14}/></a><button className="nav-toggle" onClick={()=>setMenu(!menu)} aria-label={menu?'Close menu':'Open menu'}>{menu?<X/>:<Menu/>}</button></header>
-{menu&&<div className="menu-overlay">{[['Projects','work'],['Expertise','expertise'],['Approach','story'],['Contact','contact']].map(([title,id],i)=><a href={'#'+id} onClick={()=>setMenu(false)} key={id}><small>0{i+1}</small>{title}<ArrowUpRight/></a>)}</div>}
-<section className="opening opening-v5" id="top">
-<div className="hero-grain" aria-hidden="true"/>
-<div className="hero-meta"><span>RAMSETU CONSTRUCTIONS / DESIGN CONCEPT 2026</span><span>BENGALURU · MYSURU · HASSAN</span></div>
-<div className="hero-architecture"><div className="hero-photo-frame"><img src={photos[0]} alt="Architectural work from Ramsetu's published gallery" fetchPriority="high"/><span className="hero-photo-number">01 — FEATURED ARCHITECTURE</span></div><div className="hero-architecture-lines" aria-hidden="true"><span>+6.45 M</span><span>STRUCTURE / SPACE / FORM</span></div></div>
-<div className="hero-type"><div className="hero-eyebrow">AN INDEPENDENT ARCHITECTURAL PRESENTATION <span>✳</span> BUILDING WHAT MATTERS</div><h1><span className="hero-word">Beyond</span><span className="hero-word hero-outline">the blueprint<span className="hero-dot">.</span></span></h1></div>
-<div className="hero-side"><span>01 / 07</span><p>From first idea to the spaces where life unfolds. A new way to experience architecture, construction and interiors.</p><a href="#work">EXPLORE OUR WORK <ArrowUpRight size={17}/></a></div>
-<div className="hero-footer"><a href="#story">DISCOVER THE THINKING <ArrowDown size={14}/></a><span>SCROLL TO ENTER THE EXPERIENCE</span><span>12° 58′ N / 77° 35′ E</span></div>
-</section>
-<BuildingSequence/>
-<section className="bridge" id="story"><div className="bridge-top rise"><span className="eyebrow">03 / OUR POINT OF VIEW</span><span>THE DISTANCE BETWEEN AN IDEA AND A HOME IS ATTENTION TO DETAIL.</span></div><div className="bridge-title rise"><h2>We give ideas<br/><em>room to become real.</em></h2><p>A home is never just a set of drawings. It is a thousand thoughtful decisions, made for the people who will live inside it.</p></div><div className="bridge-images rise"><div className="bridge-photo first"><img src={photos[3]} alt="Architectural work featured on the Ramsetu website" loading="lazy"/><span>01 / THE POSSIBILITY</span></div><div className="bridge-photo second"><img src={photos[6]} alt="Design image featured on the Ramsetu website" loading="lazy"/><span>02 / THE CONSIDERATION</span></div><div className="bridge-photo third"><img src={photos[1]} alt="Design image featured on the Ramsetu website" loading="lazy"/><span>03 / THE SPACE</span></div></div></section>
-<section className="expertise" id="expertise"><div className="expertise-heading"><span className="eyebrow">04 / THREE DISCIPLINES, ONE VISION</span><h2 className="rise">The art of<br/><em>making space.</em></h2><span className="expertise-instruction">CHOOSE A DISCIPLINE ↘</span></div><div className="expand-stage">{services.map((s,i)=><button key={s.number} className={'discipline '+(active===i?'is-active':'')} onClick={()=>setActive(i)} aria-expanded={active===i}><div className="discipline-back" style={{backgroundImage:`linear-gradient(0deg,rgba(9,14,35,.65),rgba(9,14,35,.02)),url('${s.pic}')`}}/><div className="discipline-title"><span>[ {s.number} ]</span><h3>{s.name}</h3><span className="disc-plus">{active===i?<Minus size={18}/>:<Plus size={18}/>}</span></div><div className="discipline-content"><span>{s.eyebrow}</span><p>{s.copy}</p><span className="discipline-arrow"><ArrowUpRight/></span></div></button>)}</div><div className="blue-statement"><span>RAMSETU / PRACTICE</span><h3 className="rise">Architectural thinking.<br/>Design sensibility.<br/><em>Thoughtful execution.</em></h3><span>ONE VISION, FROM START TO FINISH.</span><div className="blue-lines blue-lines-left">⌜ ⌟<br/>╱ ╲</div><div className="blue-lines blue-lines-right">⌜──⌝<br/>│ ╱│</div></div></section>
-<section className="projects" id="work"><div className="projects-top"><span className="eyebrow">05 / SELECTED VISUAL STORIES</span><h2 className="rise">A home is<br/><em>a composition.</em></h2><p>Form, proportion and the quiet details that give a space its own identity.</p></div><div className="project-card"><div className="project-picture" key={project}><img src={projects[project].picture} alt={`${projects[project].category} image from Ramsetu's published gallery`}/></div><div className="project-overlay"><div className="project-numbers">RAMSETU / PUBLISHED GALLERY <span>{projects[project].number} — 04</span></div><div className="project-bottom"><div><span>{projects[project].category}</span><h3>{projects[project].name}</h3></div><div className="project-arrows"><button aria-label="Previous project" onClick={()=>next(-1)}><ArrowLeft/></button><button aria-label="Next project" onClick={()=>next(1)}><ArrowRight/></button></div></div></div></div><div className="project-disclaimer">IMAGES ARE FROM RAMSETU'S PUBLISHED WEBSITE. PROJECT TITLES ARE EDITORIAL PLACEHOLDERS; DESIGN RENDERS ARE NOT VERIFIED COMPLETED BUILDS.</div></section>
-<section className="vision"><div className="vision-image"><img className="vision-photo" src={photos[1]} alt="Interior or architectural image from Ramsetu's gallery" loading="lazy"/></div><div className="vision-overlay"><span>06 / THE BIGGER PICTURE</span><h2 className="rise">A group of lines,<br/>forming a place<br/><em>to belong.</em></h2><p>Considered in detail. Imagined for real life.</p></div></section>
-<section className="contact" id="contact"><div className="contact-inner"><span className="eyebrow">07 / THE NEXT CHAPTER</span><h2 className="rise">Shall we<br/><em>begin?</em></h2><p>Tell us about the space you have in mind. Every meaningful project starts with a conversation.</p><a className="big-cta" href={wa} target="_blank" rel="noreferrer">START A CONVERSATION <ArrowUpRight/></a></div><div className="faq"><div className="faq-title"><span className="eyebrow">A FEW THINGS TO KNOW</span><h3>Before we<br/><em>build.</em></h3></div><div className="faq-items">{[['What does Ramsetu work on?','Residential construction, architectural design and interior-related services, as described in its public profile.'],['Where is Ramsetu based?','Its public Instagram profile lists Bengaluru, Mysuru and Hassan.'],['How can I discuss my project?','Use the enquiry link to start a WhatsApp conversation with Ramsetu.']].map(([q,a],i)=><div className="faq-item" key={q}><button onClick={()=>setFaq(faq===i?null:i)} aria-expanded={faq===i}>{q}{faq===i?<Minus size={16}/>:<Plus size={16}/>}</button>{faq===i&&<p>{a}</p>}</div>)}</div></div><footer><div className="footer-brand"><img src="/ramsetu-original-logo.png" alt="Ramsetu original logo"/><span>RAMSETU<small>CONSTRUCTIONS</small></span></div><span>INDEPENDENT DESIGN CONCEPT · 2026</span><a href="https://instagram.com/ramsetu_constructions/" target="_blank" rel="noreferrer">INSTAGRAM ↗</a><a href="#top">BACK TO TOP ↑</a></footer></section><div className="reading-progress" style={{transform:`scaleX(${progress/100})`}}/></div>}
+}
 createRoot(document.getElementById('root')!).render(<App/>);
